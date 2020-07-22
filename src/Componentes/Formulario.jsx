@@ -7,7 +7,10 @@ const Formulario = () => {
         cancion:''
     });  
 
+    const [error, guardarError] = useState(false);
+
     const {artista, cancion} = busqueda; 
+
 
 
     // Funcion a cada input para leer su contenido
@@ -18,13 +21,32 @@ const Formulario = () => {
         })
     }
 
+    // Consultar las Api
+    const buscarInformacion = e => {
+        e.preventDefault();
+
+        // Validacion
+        if(artista.trim() === "" || cancion.trim() === ""){
+            guardarError(true);
+            return
+        }else{
+            guardarError(false)
+        }
+
+        // Si esta todo bien pasar al componente principal
+
+    }
+    
+
+
     return ( 
         <div className="bg-info">
+                {error ? <p className="alert alert-danger text-center p-2">Todos los campos son obligatorios</p> : null}
+
         <div className="container"> 
             <div className="row">
-                
                 <form 
-                    // onSubmit={buscarInformacion}
+                    onSubmit={buscarInformacion}
                     className="col card text-white bg-transparent mb-5 pt-5 pb-2"
                 >
                     <fieldset>
